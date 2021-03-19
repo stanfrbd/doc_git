@@ -9,6 +9,12 @@ footer: "Stan 2021"
     header, footer, lead.h1 {
         text-align: center;
     }
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+    }
 </style>
 
 <!-- 
@@ -20,6 +26,13 @@ _class: lead
 
 ---
 
+# Why is Git different?
+
+"Git doesn’t think of or store its data this way. Instead, Git thinks of its data more like a series of snapshots of a miniature filesystem. With Git, every time you commit, or save the state of your project, Git basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot. To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file it has already stored. Git thinks about its data more like a stream of snapshots." [git-scm](https://www.git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
+
+
+---
+
 # Configuration
 
 * This command sets the author name and email address respectively to be used with your commits.
@@ -28,13 +41,28 @@ e.g. your GitHub account email address.
 ```bash
 $ git config --global user.name "John Doe"
 $ git config --global user.email "johndoe@example.com"
+$ git config --global core.editor vim # or nano or emacs but don't cry after that
 ```
 
-* [Generate SSH key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+---
 
-* [Add public key to you GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
+# SSH (use it!!!)
 
+* [Generating a new pair of SSH keys](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
+* [Adding public key to you GitHub account](https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
+
+* [For GitHub fans: GitHub CLI](https://cli.github.com/)
+
+```bash
+# start the ssh-agent in the background
+$ eval `ssh-agent -s`
+> Agent pid 59566
+
+$ ssh-add ~/.ssh/$privateKey
+Enter passphrase for ~/.ssh/$privateKey
+# Great! You won't have to type your passphrase again until you close this terminal
+```
 
 ---
 
@@ -63,6 +91,8 @@ $ git push -u origin main # push files to GitHub
 ```bash
 $ git clone https://github.com/$userName/$repoName.git
 ```
+* Remember you can use SSH
+* Remember to use the SSH agent
 ---
 
 # Add files
@@ -145,13 +175,13 @@ $ git status # shows changed files and untracked files
 # show the history of the commits for the current branch, and their ID
 $ git log
 commit e45f8399cf1092db2e04e51e914f399c569b5eb0 (HEAD -> main, origin/main, origin/HEAD)
-Author: stanfrbd <44167150+stanfrbd@users.noreply.github.com>
+Author: Firstname NAME <email@email.com>
 Date:   Tue Mar 16 08:36:26 2021 +0100
 
     Create README.md
 
 commit 1b093c745d7a55a8cbfaa5d0f58a874944936863 -----------> $commitID
-Author: Stanislas MEDRANO <stanislas.medrano@hotmail.com>
+Author: Firstname NAME <email@email.com>
 Date:   Tue Mar 16 08:34:37 2021 +0100
 
     initial commit
@@ -204,5 +234,13 @@ $ git pull
 $ git merge $branchName # e.g. main
 # you will have to resolve conflicts using git diff
 ```
+
+---
+
+# #RTFM!
+
+* [git-scm documentation](https://www.git-scm.com/book/en/v2)
+
+![image](https://i.kym-cdn.com/entries/icons/original/000/000/858/rtfm.jpg)
 
 
