@@ -102,13 +102,13 @@ $ git add <files> # <files> will be tracked by git
 $ git add . # when using a .gitignore
 ```
 
-* You can use a `.gitignore`  that should be commited before adding specific files
+* You can use a `.gitignore`  that should be commited **before** adding specific files
 
 ```bash
 # .gitignore 
 # ignore objects files
 *.o
-# ignore the 'test' folder and everythin inside
+# ignore the 'test' folder and everything inside
 test/
 ```
 
@@ -120,7 +120,7 @@ test/
 $ git commit -m "message"
 
 # or if you don't mind
-$ git commit -a
+$ git commit -a # will open an editor and you'll have to type a commit message
 ```
 
 ---
@@ -141,7 +141,7 @@ $ git tag "version-0.0"
 $ git push --tags
 
 # On GitHub, a tag initialises a release, very useful.
-# Using DevOps, a tag can launch a pipeline (trigger on a specific tag). 
+# for DevOps, a tag can launch a pipeline (trigger on a specific tag). 
 
 ```
 
@@ -150,7 +150,8 @@ $ git push --tags
 # Pull 
 
 ```bash
-$ git pull # sync with the server
+$ git pull # syncs with the server
+$ git pull origin $branchName # downloads locally the selected branch
 ```
 
 ---
@@ -192,7 +193,11 @@ Date:   Tue Mar 16 08:34:37 2021 +0100
 # Rollback changes
 
 ```bash
-$ git reset $file
+# discards changes for a single file -> rollback
+$ git checkout -- $file
+
+# discards changes for all files -> rollback
+$ git checkout -- *
 
 #  This command discards all history 
 # and goes back to the specified commit
@@ -233,6 +238,40 @@ $ git pull
 
 $ git merge $branchName # e.g. main
 # you will have to resolve conflicts using git diff
+# You can use an user friendly editor such as VS Code
+
+$ git commit -m "Merged $file from $branchName in $masterBranch"
+```
+
+---
+
+# Hooks
+
+* Do some actions before comitting changes 
+* e.g. checking coding style
+* e.g. checking forbidden binaries
+
+* [pre-commit](https://pre-commit.com/)
+
+---
+
+# DevOps using GitHub
+
+* [GitHub Actions](https://docs.github.com/en/enterprise-server@2.22/actions/learn-github-actions/introduction-to-github-actions)
+
+---
+
+# Wizard commands
+
+I'm dummy and I added binaries in my repo:
+
+```bash
+$ extensionOfFilesToRemove="o"
+$ git rm $(find . -name *.$extensionOfFilesToRemove)
+# removes *.o
+
+# shows last commit id in order to git reset --hard
+$ echo $(git log | head -1 | cut -d " " -f2)
 ```
 
 ---
